@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+/*Regular 400 Light 300*/
+
+
+/***************************/
+/*        GLOBALES         */  
+/***************************/
+:root{
+    --button: #000000;
+    --button-hov: #c4c3c3;
+    --main-bg:  #000000af;
+    --main-text: #ffffff;
+    --input-ph: #d1d1d1;
+    --input-fc: #ffffff;
+}
+
+
+* {
+    font-family: 'Roboto', sans-serif;
+    color: var(--main-text);
+    text-decoration: none;
+}
+
+.contenido-form {
+    max-height: 530px;
+    max-width: 550px;
+    margin: 20px auto;
+    background: var(--main-bg);
+    padding: 30px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.contenido-form::-webkit-scrollbar{
+    width: 5px
+}
+
+h1 {
+    text-align: center;
+}
+
+input:not([type="radio"]){
+    display: block;
+    background-color:transparent;
+    padding: 2px 7px;
+    width: 95%;
+    border:none;
+    margin-bottom: 20px;
+    outline: none;
+    border-bottom: 2px solid var(--input-ph);
+}
+
+input[type="radio"]{
+    margin:10px;
+}
+
+
+input::placeholder{
+    color: var(--input-ph);
+}
+
+.boton{    
+    height: 40px;
+    background-color: var(--button);
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin: 35px auto 10px ;
+    cursor:pointer;
+}
+
+.boton:hover {
+    transition: .5s;
+    box-shadow: 0 0 20px 0 var(--button-hov);
+}
