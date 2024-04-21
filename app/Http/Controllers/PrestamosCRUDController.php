@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prestamos;
+use App\Models\Libro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PrestamosCRUDController extends Controller
 {
@@ -13,25 +15,33 @@ class PrestamosCRUDController extends Controller
     }
 
     public function mostrarFormularioAdd(){
-        return view('addPrestamo'); //Nombre de la vista que queremos mostrar
+        $libros = Libro::all();
+        return view('prestamos.addPrestamo', ['libros' => $libros]); //Nombre de la vista que queremos mostrar
     }
 
     public function addPrestamo(Request $datosEnviados){
         return $this->prestamos->savePrestamo($datosEnviados->input('user_id'), $datosEnviados->input('book_id'), $datosEnviados->input('fecha_prestamo'));
     }
 
-    public function mostrarFormularioUpdatePrestamo(){
-        return view('updatePrestamo');
+    public function mostrarFormularioUpdatePrestamo($id){
+        $prestamo = Prestamos::find($id);
+        $libros = Libro::all();
+        return view('prestamos.updatePrestamo', ['prestamo' => $prestamo, 'libros' => $libros]);
     }
 
     public function updatePrestamo(Request $datosEnviados){
-        return $this->prestamos->updatePrestamo($datosEnviados->input('id'), $datosEnviados->input('user_id'), $datosEnviados->input('fecha_prestamo'), $datosEnviados->input('fecha_devolucion'));
+        return $this->prestamos->updatePrestamo($datosEnviados->input('id'), $datosEnviados->input('fecha_devolucion'));
        
+    }
+    //NUEVO
+    public function updateFinPrestamo(Request $datosEnviados){
+        return $this->prestamos->updateFinPrestamo($datosEnviados->input('id'), $datosEnviados->input('fecha_devolucion'));
     }
 
 
     public function mostrarFormularioDelete(){
-        return view('deletePrestamo');
+        return view('prestamos.deletePrestamo');
+
     }
 
     public function deletePrestamo(Request $datosEnviados){
@@ -39,8 +49,11 @@ class PrestamosCRUDController extends Controller
     }
 
 
-    public function mostrarPrestamos(){
-        $allPrestamos = $this->prestamos->getAllPrestamos();
-        return view('showPrestamos', ['prestamos' => $allPrestamos]);
-    }
+    // public function mostrarPrestamos(){
+    //     $user_id = Auth::user()->id;
+    //     $allPrestamos = Prestamos::where("user_id", "=", $user_id)->get();
+    //     $libros = Libro::all();
+    //     // dd($allPrestamos);
+    //     return view('prestamos.showPrestamos', ['prestamos' => $allPrestamos, 'libros' => $libros]);
+    // }
 }

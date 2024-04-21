@@ -11,8 +11,10 @@ class Libro extends Model
     
     protected $table = 'libros';
 
-    // No necesario pero si recomendado
-    // protected $fillable =['id', 'titulo', 'autor', 'año_publicacion', 'genero', 'disponible'];
+    //RELACION PRESTAMO
+    public function prestamos(){
+        return $this->hasMany(Prestamos::class);
+    }
 
     /********* BUSCAR *********/
     public function getAllLibros(){

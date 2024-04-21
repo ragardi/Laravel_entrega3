@@ -12,14 +12,13 @@
         <header>
             <nav class = "contenido-form">
                 <ul>
-                    <!-- RUTAS DE LOS LIBROS -->
-                    <li><a href = "{{route('home')}}">Inicio</a></li>                   
+                                  
                     <li><a href = "{{route('MostrarLibros')}}">Mostrar Libros</a></li>
                     <li><a href = "{{route('FormularioAddLibro')}}">Añadir Libro</a></li>
                     <li><a href = "{{route('FormularioUpdate')}}">Actualizar Libro</a></li>
                     <li><a href = "{{route('FormularioDelete')}}">Eliminar Libro</a></li>
                     <hr>
-                    <!-- RUTAS DE LOS PRESTAMOS -->
+                    
                     <li><a href = "{{route('MostrarPrestamos')}}">Mostrar Préstamos</a></li>
                     <li><a href = "{{route('FormularioAddPrestamo')}}">Añadir Préstamo</a></li>
                     <li><a href = "{{route('FormularioUpdatePrestamo')}}">Actualizar Préstamo</a></li>

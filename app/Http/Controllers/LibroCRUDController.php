@@ -17,7 +17,7 @@ class LibroCRUDController extends Controller
     }
 
     public function mostrarFormularioAdd(){
-        return view('addLibro'); //Nombre de la vista que queremos mostrar
+        return view('libros.addLibro'); //Nombre de la vista que queremos mostrar
     }
 
     public function addLibro(Request $datosEnviados){
@@ -26,7 +26,7 @@ class LibroCRUDController extends Controller
     }
 
     public function mostrarFormularioUpdate(){
-        return view('updateLibro');
+        return view('libros.updateLibro');
     }
 
     public function updateLibro(Request $datosEnviados){
@@ -35,7 +35,7 @@ class LibroCRUDController extends Controller
     }
 
     public function mostrarFormularioDelete(){
-        return view('deleteLibro');
+        return view('libros.deleteLibro');
     }
 
     public function deleteLibro(Request $datosEnviados){
@@ -44,6 +44,6 @@ class LibroCRUDController extends Controller
 
     public function mostrarLibros(){
         $allLibros = $this->libro->getAllLibros();
-        return view('showLibro', ['libros' => $allLibros]);
+        return view('libros.showLibro', ['libros' => $allLibros]);
     }
 }

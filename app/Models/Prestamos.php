@@ -12,8 +12,15 @@ class Prestamos extends Model
     
     protected $table = 'prestamos';
 
-    //NO necesario pero si recomendado
-    // protected $fillable = ['id', 'user_id', 'book_id', 'fecha_prestamo', 'fecha_devolucion'];
+    //RELACION USUARIO
+     public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    //RELACION LIBRO
+    public function libro(){
+        return $this->belongsTo(Libro::class, 'book_id', 'id');
+    }
 
     /********* BUSCAR *********/
     public function getAllPrestamos(){
@@ -22,6 +29,10 @@ class Prestamos extends Model
 
     public function getPrestamoID($id){
         return Prestamos::find($id);
+    }
+
+    public function getPrestamoUsuario($user_id){
+        return Prestamos::where("user_id", "=", $user_id);
     }
 
     /********* INSERTAR *********/  
@@ -40,7 +51,7 @@ class Prestamos extends Model
             try {
                 $prestamo->save();
                 Libro::updateEstadoLibro($book_id, 0);
-                return "OK"; 
+                return redirect('/showPrestamo');
             }
             catch(Exception $e){
                 return "Error al guardar el prestamo";
@@ -50,10 +61,28 @@ class Prestamos extends Model
         return "Este libro no está disponible";
     }
 
+    /********* FINALIZAR PRESTAMO *********/ 
+    public function updateFinPrestamo($id, $fecha_devolucion){
+        $prestamo = Prestamos::find($id);
+        // dd($fecha_devolucion);
+        if(isset($prestamo)){
+            $prestamo->fecha_devolucion = $fecha_devolucion;
+
+            if ($fecha_devolucion <= today()){
+                Libro::updateEstadoLibro($prestamo->book_id, 1);
+            }
+
+            $prestamo->save();
+            return redirect('/showPrestamo');
+        }
+
+        return "No existe ese préstamo";
+    }
 
     /********* ACTUALIZAR *********/  
     public function updatePrestamo($id, $user_id, $fecha_prestamo, $fecha_devolucion){
         $prestamo = Prestamos::find($id);
+        // dd($prestamo);
         
         if(isset($prestamo)){
             $prestamo->user_id = $user_id;
@@ -65,7 +94,7 @@ class Prestamos extends Model
             }
 
             $prestamo->save();
-            return "OK"; 
+            return redirect('/showPrestamo');
         }
 
         return "No existe ese préstamo";
@@ -79,7 +108,7 @@ class Prestamos extends Model
             $book_id = $prestamo->book_id;
             $prestamo->delete();
             Libro::updateEstadoLibro($book_id, 1);
-            return "OK";
+            return redirect('/showPrestamo');
         }
 
         return "No existe ese préstamo";
