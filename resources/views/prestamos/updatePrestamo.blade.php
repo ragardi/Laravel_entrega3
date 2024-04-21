@@ -9,10 +9,7 @@
 
 
     <div class="py-12">
-        <!-- <div class="w-3/5 mx-auto sm:px-6 lg:px-8"> -->
         <div class="w-full mx-auto sm:max-w-md  px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-
-            <!-- <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg w-2/4"> -->
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                 <form method="POST" action="{{ route('updateFinPrestamo') }}">
                     @csrf
@@ -28,7 +25,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <option value ="$prestamo->book_id"> Libro </option>
+                        <x-label for="" :value="__('Libro')" />
                         @foreach ($libros as $libro)
                             @if($libro->id == $prestamo->book_id)
                                 <option value={{$libro->id}} selected >{{$libro->titulo}}</option>
@@ -47,8 +44,6 @@
 
                         <x-input id="fecha_devolucion" class="block mt-1 w-2/4" type="date" name="fecha_devolucion" :value="$prestamo->fecha_devolucion" autofocus/>
                     </div>
-
-                    <!-- Otros campos del formulario -->
 
                     <div class="flex items-center justify-end mt-4">
                         <button type="submit" class="ml-4 px-4 py-2 rounded-md font-semibold text-xs text-white uppercase bg-indigo-500">
